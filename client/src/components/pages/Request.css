@@ -6,3 +6,29 @@
 .jeff {
   font-size: 100px;
 }
+
+.request-field {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.request-field-label {
+  width: 20vw;
+}
+
+.dropdown-btn {
+  display: block;
+}
+
+.dropdown-menu {
+  display: inline-block;
+  position: absolute;
+  margin-left: 0;
+  top: 36px;
+  z-index: 2;
+  border: 1px solid black;
+  border-radius: 3px;
+  max-height: 25vh;
+  overflow-y: scroll;
+  min-width: 120px;
+}
