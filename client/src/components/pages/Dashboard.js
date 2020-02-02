@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
       });
     });
     navigate("/confirm");
-  }
+  };
 
   handleCancel = (request) => {
     post("/api/cancel", { _id: request._id }).then((deletedRequest) => {
@@ -61,7 +61,9 @@ class Dashboard extends React.Component {
             {request.price}
           </div>
           <div className="request-info-btn-container">
-            <button onClick={() => this.handleConfirm(request)} className="request-confirm-btn">Confirm</button>
+            <button onClick={() => this.handleConfirm(request)} className="request-confirm-btn">
+              Confirm
+            </button>
           </div>
         </div>
       ));
@@ -86,13 +88,18 @@ class Dashboard extends React.Component {
       ));
     }
 
+    let greeting = "Welcome!";
+    if (this.props.username) {
+      greeting = `Welcome, ${this.props.username}!`;
+    }
+
     return (
       <div className="page-container">
         <Helmet>
           <title>Dashboard | Chip</title>
         </Helmet>
         <div className="dashboard-container">
-          <div className="welcome">Welcome, {this.props.username}!</div>
+          <div className="welcome">{greeting}</div>
           <h3 className="dashboard-subheader">Matched Requests</h3>
           <div className="request-info-grid">{matchedRequestList}</div>
           <h3 className="dashboard-subheader">Pending Requests</h3>
