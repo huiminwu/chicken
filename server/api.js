@@ -88,7 +88,7 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
       console.log(total);
       console.log(Number(thresholds[i].minUnits));
       console.log(ids);
-      while (total < Number(thresholds[i].minUnits)) {
+      while (i < thresholds.length && total < Number(thresholds[i].minUnits)) {
         i++;
         total = 0;
         ids = [];
