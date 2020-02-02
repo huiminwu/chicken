@@ -16,10 +16,6 @@
   width: 20vw;
 }
 
-.dropdown-container {
-  position: relative;
-}
-
 .dropdown-first-btn {
   cursor: pointer;
 }
@@ -29,15 +25,15 @@
   display: block;
 }
 
+.dropdown-btn:hover {
+  background: var(--hover);
+}
+
 .dropdown-menu {
-  display: inline-block;
-  position: absolute;
-  margin-left: 0;
-  top: 36px;
-  z-index: 2;
+  margin-top: 10px;
+  max-height: 25vh;
+  padding: 12px;
   border: 1px solid black;
   border-radius: 3px;
-  max-height: 25vh;
   overflow-y: scroll;
-  min-width: 120px;
 }
