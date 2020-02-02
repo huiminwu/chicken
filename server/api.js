@@ -61,6 +61,16 @@ router.get("/requests", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+let matches;
+
+router.get("/requests", (req, res) => {
+  Request.find({ product: req.query.product}).then(requests =>
+    matches = requests
+  );
+});
+
+console.log(matches);
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
