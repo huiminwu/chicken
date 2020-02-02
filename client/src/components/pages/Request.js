@@ -53,14 +53,14 @@ class Request extends React.Component {
     const PRODUCT_TYPES = ["flour", "sugar", "paper", "bricks", "stone", "bread"];
     const PRODUCT_DETAILS = {
       flour: [
-        { unitPrice: "$1", minUnits: "10" },
-        { unitPrice: "$2", minUnits: "30" },
+        { unitPrice: "$1.00", minUnits: "30" },
+        { unitPrice: "$2.00", minUnits: "10" },
       ],
-      sugar: [{ unitPrice: "$2", minUnits: "20" }],
-      paper: [{ unitPrice: "$3", minUnits: "30" }],
-      bricks: [{ unitPrice: "$4", minUnits: "40" }],
-      stone: [{ unitPrice: "$5", minUnits: "50" }],
-      bread: [{ unitPrice: "$6", minUnits: "60" }],
+      sugar: [{ unitPrice: "$2.00", minUnits: "20" }],
+      paper: [{ unitPrice: "$3.00", minUnits: "30" }],
+      bricks: [{ unitPrice: "$4.00", minUnits: "40" }],
+      stone: [{ unitPrice: "$5.00", minUnits: "50" }],
+      bread: [{ unitPrice: "$6.00", minUnits: "60" }],
     };
 
     const productPrices = PRODUCT_DETAILS[this.state.product];
