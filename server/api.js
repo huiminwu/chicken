@@ -93,9 +93,11 @@ router.get("/requests", (req, res) => {
   });
 });
 
-// |------------------------------|
-// | write your API methods below!|
-// |------------------------------|
+router.post("/cancel", auth.ensureLoggedIn, (req, res) => {
+  Request.findOneAndDelete({ _id: req.body._id }).then((deletedRequest) =>
+    res.send(deletedRequest)
+  );
+});
 
 // router.get("/matches", (req, res) => {
 // Request.find({ product: req.query.product }).then((requests) => {
