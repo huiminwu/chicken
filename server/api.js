@@ -84,6 +84,8 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
       }
       while (total < Number(thresholds[i].minUnits)){
         i++;
+        total = 0;
+        ids = [];
         if(i === thresholds.length){
           res.send([]);
         }
