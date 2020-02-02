@@ -13,6 +13,7 @@ class Request extends React.Component {
       units: null,
       showDropdown: null,
       error: null,
+      submitted: false,
     };
   }
 
@@ -43,7 +44,7 @@ class Request extends React.Component {
         price: this.state.price,
         units: this.state.units,
       };
-      post("/api/requests", params).then((request) => console.log(request));
+      post("/api/requests", params).then((request) => this.setState({ submitted: true }));
     }
   };
 
@@ -96,42 +97,54 @@ class Request extends React.Component {
 
     return (
       <div className="page-container">
-        <div className="jeff">my name jeff</div>
-        <h1 className="page-title">submit a request</h1>
-        <div className="request-field">
-          <div className="request-field-label">Product</div>
-          <div className="dropdown-container">
-            <div className="dropdown-first-btn" onClick={() => this.toggleDropdown("product")}>
-              {this.state.product}
-            </div>
-            {this.state.showDropdown === "product" && productDropdown}
+        {this.state.submitted ? (
+          <div>
+            Your request has been submitted! Your dashboard will be updated when it's ready to be
+            placed.
           </div>
-        </div>
-        <div className="request-field">
-          <div className="request-field-label">Price</div>
-          <div className="dropdown-container">
-            <div className="dropdown-first-btn" onClick={() => this.toggleDropdown("price")}>
-              {this.state.price}
+        ) : (
+          <>
+            <div className="jeff">my name jeff</div>
+            <h1 className="page-title">submit a request</h1>
+            <div className="request-field">
+              <div className="request-field-label">Product</div>
+              <div className="dropdown-container">
+                <div className="dropdown-first-btn" onClick={() => this.toggleDropdown("product")}>
+                  {this.state.product}
+                </div>
+                {this.state.showDropdown === "product" && productDropdown}
+              </div>
             </div>
-            {this.state.showDropdown === "price" && priceDropdown}
-          </div>
-        </div>
-        <div className="request-field u-flex-alignCenter">
-          <div className="request-field-label">Quantity</div>
-          <input
-            type="text"
-            onChange={(event) => this.handleFieldChange("units", event.target.value)}
-          />
-        </div>
-        <div className="request-footer">
-          {this.state.error}
-          <button className="footer-btn">
-            <a href="/dashboard">Cancel</a>
-          </button>
-          <button className="footer-btn submit-btn" onClick={(event) => this.handleSubmit(event)}>
-            Submit
-          </button>
-        </div>
+            <div className="request-field">
+              <div className="request-field-label">Price</div>
+              <div className="dropdown-container">
+                <div className="dropdown-first-btn" onClick={() => this.toggleDropdown("price")}>
+                  {this.state.price}
+                </div>
+                {this.state.showDropdown === "price" && priceDropdown}
+              </div>
+            </div>
+            <div className="request-field u-flex-alignCenter">
+              <div className="request-field-label">Quantity</div>
+              <input
+                type="text"
+                onChange={(event) => this.handleFieldChange("units", event.target.value)}
+              />
+            </div>
+            <div className="request-footer">
+              {this.state.error}
+              <button className="footer-btn">
+                <a href="/dashboard">Cancel</a>
+              </button>
+              <button
+                className="footer-btn submit-btn"
+                onClick={(event) => this.handleSubmit(event)}
+              >
+                Submit
+              </button>
+            </div>
+          </>
+        )}
       </div>
     );
   }

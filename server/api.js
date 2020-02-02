@@ -47,7 +47,6 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
     product: req.body.product,
     price: req.body.price,
     units: req.body.units,
-    id: req.body.id,
   });
   newRequest.save().then((newRequest) => {
     Request.find({ product: req.body.product }).then((requests) => {
@@ -85,7 +84,7 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
 // should pass {product: ""}
 router.get("/requests", (req, res) => {
   Request.find({ user: req.user._id }).then((requests) => {
-    res.send(JSON.stringify(requests));
+    res.send(requests);
   });
 });
 
