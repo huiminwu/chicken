@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+.logout-btn {
+  margin-top: 10px;
+}
+
 .navBar-title {
   padding: 8px;
   font-family: "Open Sans", sans-serif;
@@ -81,5 +85,6 @@
 
 .Navbar-opts_login {
   margin-left: 12px;
-  padding: 0px;
+  height: 45px;
+  padding-top: 15px;
 }
