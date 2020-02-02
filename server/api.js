@@ -137,6 +137,7 @@ router.get("/requests", (req, res) => {
   });
 });
 
+//used to cancel and delete
 router.post("/cancel", auth.ensureLoggedIn, (req, res) => {
   Request.findOneAndDelete({ _id: req.body._id }).then((deletedRequest) =>
     res.send(deletedRequest)
