@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import "./Landing.css";
 import "../../utilities.css";
+import buildings from "../../public/smallbuss.jpg"
 
 class Landing extends Component {
   constructor(props) {
@@ -13,6 +14,8 @@ class Landing extends Component {
       <>
         <div className="landing-Container">
           <h1 className="title">Chip</h1>
+          <img className="buildings-img" src={buildings} />
+          <div className="bottom-img"></div>
           <p className="tagline">
             small prices for small businesses
           </p>

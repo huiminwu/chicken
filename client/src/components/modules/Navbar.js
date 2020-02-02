@@ -4,6 +4,7 @@ import { Link } from "@reach/router";
 
 import "./Navbar.css";
 import "../../utilities.css";
+import logo from "../../../dist/C.png"
 
 const GOOGLE_CLIENT_ID = "601918594543-sdt4mvsgtaamoh1tktkhi5nsf1uuqlsn.apps.googleusercontent.com";
 
@@ -18,7 +19,7 @@ class Navbar extends Component {
         <div className="navBar-container">
           <div className="navBar-title">
             <Link to="/dashboard/" className="navBar-link">
-              Chip
+              <img className="logo-img" src={logo} />
             </Link>
           </div>
           <div className="navBar-linkContainer">
@@ -27,7 +28,7 @@ class Navbar extends Component {
                 <Link to="/dashboard/" className="navBar-link">
                   Dashboard
                 </Link>
-                <Link to="/request/" className="navBar-link">
+                <Link to="/request/" className="navBar-link request">
                   Request
                 </Link>
                 <GoogleLogout
@@ -39,14 +40,14 @@ class Navbar extends Component {
                 />
               </>
             ) : (
-              <GoogleLogin
-                className="Navbar-opts_login"
-                clientId={GOOGLE_CLIENT_ID}
-                buttonText="Login"
-                onSuccess={this.props.handleLogin}
-                onFailure={(err) => console.log(err)}
-              />
-            )}
+                <GoogleLogin
+                  className="Navbar-opts_login"
+                  clientId={GOOGLE_CLIENT_ID}
+                  buttonText="Login"
+                  onSuccess={this.props.handleLogin}
+                  onFailure={(err) => console.log(err)}
+                />
+              )}
           </div>
         </div>
       </>

@@ -1,5 +1,21 @@
 .title,
+.buildings-img,
 .tagline {
   display: flex;
   justify-content: center;
+  z-index: 3;
+}
+
+.title {
+  font-size: 128px;
+  margin-bottom: 0px;
+}
+
+.buildings-img{
+  height: 200px;
+  width: 600px;
+  align-items: center;
+  margin: auto;
+  /* display: flex;
+  justify-content: center; */
 }

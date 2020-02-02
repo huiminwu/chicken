@@ -75,7 +75,13 @@
   cursor: pointer;
 }
 
-.submit-btn {
+.submit-more {
+  margin: auto;
+  display: flex;
+  margin-top: 15px;
+}
+
+.submit-btn, .submit-more {
   background: var(--accent);
   color: white;
 }

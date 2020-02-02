@@ -52,6 +52,9 @@
 .request-cancel-btn:hover,
 .request-confirm-btn:hover {
   cursor: pointer;
+  -moz-box-shadow:    0px 0px 5px 4px #ccc;
+  -webkit-box-shadow: 0px 0px 5px 4px #ccc;
+  box-shadow:         0px 0px 5px 4px #ccc;
 }
 
 .request-cancel-btn {
