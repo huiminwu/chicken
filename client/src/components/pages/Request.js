@@ -12,25 +12,34 @@ class Request extends React.Component {
       price: null,
       units: null,
       // showDropdown: null,
+      error: null,
     };
   }
 
   componentDidMount() {}
 
-  // toggleDropdown = (dropdown) => {
-  //   if (this.state.showDropdown === dropdown) {
-  //     this.setState({ showDropdown: null });
-  //   } else {
-  //     this.setState({ showDropdown: dropdown });
-  //   }
+  toggleDropdown = (dropdown) => {
+    if (this.state.showDropdown === dropdown) {
+      this.setState({ showDropdown: null });
+    } else {
+      this.setState({ showDropdown: dropdown });
+    }
+  };
+
+  handleProductChange = (product) => {
+    this.setState({ product: product });
+  };
+
+  // handleFieldChange = (field, event) => {
+  //   this.setState({ [field]: event.target.value });
   // };
 
-  // handleProductChange = (product) => {
-  //   this.setState({ product: product });
+  // handleProductChange = (event) => {
+  //   this.setState({ product: event.target.value });
   // };
 
-  handleProductChange = (event) => {
-    this.setState({ product: event.target.value });
+  handlePriceChange = (event) => {
+    this.setState({ price: event.target.value });
   };
 
   handleQuantityChange = (event) => {
@@ -38,12 +47,20 @@ class Request extends React.Component {
   };
 
   handleSubmit = (event) => {
-    const params = {
-      product: this.state.product,
-      units: this.state.units,
-    };
-    post("/api/requests", params).then((request) => console.log(request));
-    event.preventDefault();
+    if (!this.state.product) {
+      this.setState({ error: "Please choose a product." });
+    } else if (!this.state.price) {
+      this.setState({ error: "Please choose a price." });
+    } else if (this.state.units <= 0) {
+      this.setState({ error: "Please choose a valid quantity." });
+    } else {
+      const params = {
+        product: this.state.product,
+        units: this.state.units,
+      };
+      post("/api/requests", params).then((request) => console.log(request));
+      event.preventDefault();
+    }
   };
 
   render() {
@@ -58,15 +75,32 @@ class Request extends React.Component {
 
     const productPrices = PRODUCT_DETAILS[this.state.product];
 
-    // const productDropdown = (
-    //   <div className="dropdown-menu">
-    //     {PRODUCT_TYPES.map((product, k) => (
-    //       <div key={k} className="dropdown-btn" onClick={() => this.handleProductChange(product)}>
-    //         {product}
-    //       </div>
-    //     ))}
-    //   </div>
-    // );
+    const productDropdown = (
+      <div className="dropdown-menu">
+        {PRODUCT_TYPES.map((product, k) => (
+          <div key={k} className="dropdown-btn" onClick={() => this.handleProductChange(product)}>
+            {product}
+          </div>
+        ))}
+      </div>
+    );
+
+    let priceDropdown = null;
+    if (this.state.product) {
+      priceDropdown = (
+        <div className="dropdown-menu">
+          {productPrices.map((price, k) => (
+            <div
+              key={k}
+              className="dropdown-btn"
+              onClick={() => this.handlePriceChange(price.unitPrice)}
+            >
+              {price.unitPrice}
+            </div>
+          ))}
+        </div>
+      );
+    }
 
     return (
       <div className="page-container">
@@ -74,42 +108,30 @@ class Request extends React.Component {
         <h1 className="page-title">submit a request</h1>
         <div className="request-field">
           <div className="request-field-label">Product</div>
-          {/* <div className="dropdown-first-btn" onClick={() => this.toggleDropdown("product")}>
-            Choose a product...
-          </div>
-          {this.state.showDropdown === "product" && productDropdown} */}
-          <select value={this.state.value} onChange={this.handleProductChange}>
-            <option value="" disabled selected>
+          <div className="dropdown-container">
+            <div className="dropdown-first-btn" onClick={() => this.toggleDropdown("product")}>
               Choose a product...
-            </option>
-            {PRODUCT_TYPES.map((product, k) => (
-              <option key={k} className="dropdown-btn">
-                {product}
-              </option>
-            ))}
-          </select>
+            </div>
+            {this.state.showDropdown === "product" && productDropdown}
+          </div>
         </div>
         <div className="request-field">
           <div className="request-field-label">Price</div>
-          <select value={this.state.value} onChange={this.handleProductChange}>
-            <option value="" disabled selected>
+          <div className="dropdown-container">
+            <div className="dropdown-first-btn" onClick={() => this.toggleDropdown("price")}>
               Choose a price...
-            </option>
-            {this.state.product &&
-              productPrices.map((price, k) => (
-                <option key={k} value={price}>
-                  {price.unitPrice}
-                </option>
-              ))}
-          </select>
+            </div>
+            {this.state.showDropdown === "price" && priceDropdown}
+          </div>
         </div>
         <div className="request-field">
           <div className="request-field-label">Quantity</div>
-          <input type="text" onChange={this.handleQuantityChange} />
+          <input type="text" onChange={this.handleUnitsChange} />
         </div>
         <button className="submit-btn" onClick={(event) => this.handleSubmit(event)}>
           Submit
         </button>
+        {this.state.error}
       </div>
     );
   }
