@@ -11,16 +11,19 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    // get("api/requests", { user: this.props.user }).then((requests) =>
-    //   this.setState({ requests: requests })
-    // );
-    get("/api/matches", { product: "bricks" });
+    get("api/requests", { user: this.props.user }).then((requests) => console.log(requests));
+    get("/api/matches", { product: "bricks" }).then((users) => console.log(users));
   }
 
   render() {
     let requestList = <div>Loading...</div>;
     if (this.state.requests) {
-      requestList = this.state.requests.map((request) => <div>{request.product}</div>);
+      requestList = this.state.requests.map((request, k) => (
+        <div key={k} className="request-info-container">
+          {request.product}
+          {request.units}
+        </div>
+      ));
     }
 
     return (

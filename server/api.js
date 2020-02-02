@@ -49,12 +49,44 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
     units: req.body.units,
     id: req.body.id,
   });
-  newRequest.save().then((request) => res.send(request));
+  newRequest.save().then((newRequest) => {
+    Request.find({ product: req.body.product }).then((requests) => {
+      matches = requests;
+      const PRODUCT_DETAILS = {
+        flour: [
+          { unitPrice: "$1", minUnits: "10" },
+          { unitPrice: "$2", minUnits: "30" },
+        ],
+        sugar: [{ unitPrice: "$2", minUnits: "20" }],
+        paper: [{ unitPrice: "$3", minUnits: "30" }],
+        bricks: [{ unitPrice: "$4", minUnits: "40" }],
+        stone: [{ unitPrice: "$5", minUnits: "50" }],
+        bread: [{ unitPrice: "$6", minUnits: "60" }],
+      };
+      let i;
+      let total = 0;
+      let users = [];
+      for (i = 0; i < matches.length; i++) {
+        total += Number(matches[i].units);
+        users.push(matches[i].user);
+      }
+      let name = req.body.product;
+      console.log(name);
+      console.log(total);
+      if (total >= Number(PRODUCT_DETAILS[name][0].minUnits)) {
+        res.send(users);
+      } else {
+        res.send([]);
+      }
+    });
+  });
 });
 
 // should pass {product: ""}
 router.get("/requests", (req, res) => {
-  Request.find({ user: req.user.c_id }).then((requests) => res.send(requests));
+  Request.find({ user: req.user._id }).then((requests) => {
+    res.send(JSON.stringify(requests));
+  });
 });
 
 // |------------------------------|
@@ -64,35 +96,35 @@ router.get("/requests", (req, res) => {
 let matches;
 
 router.get("/matches", (req, res) => {
-  Request.find({ product: req.query.product}).then(requests => {
-    matches = requests;
-    const PRODUCT_DETAILS = {
-      flour: [
-        { unitPrice: "$1", minUnits: "10" },
-        { unitPrice: "$2", minUnits: "30" },
-      ],
-      sugar: [{ unitPrice: "$2", minUnits: "20" }],
-      paper: [{ unitPrice: "$3", minUnits: "30" }],
-      bricks: [{ unitPrice: "$4", minUnits: "40" }],
-      stone: [{ unitPrice: "$5", minUnits: "50" }],
-      bread: [{ unitPrice: "$6", minUnits: "60" }],
-    };
-    let i;
-    let total;
-    let users = [];
-    for (i = 0; i < matches.length; i++){
-      total += Number(matches[i].units);
-      users.push(matches[i].user);
-    }
-    let name = req.query.product;
-    if(total >= Number(PRODUCT_DETAILS[name][0].minUnits)){
-      res.send(users);
-    }
-    else{
-      res.send([]);
-    }
-  };
-  );
+  // Request.find({ product: req.query.product }).then((requests) => {
+  //   matches = requests;
+  //   const PRODUCT_DETAILS = {
+  //     flour: [
+  //       { unitPrice: "$1", minUnits: "10" },
+  //       { unitPrice: "$2", minUnits: "30" },
+  //     ],
+  //     sugar: [{ unitPrice: "$2", minUnits: "20" }],
+  //     paper: [{ unitPrice: "$3", minUnits: "30" }],
+  //     bricks: [{ unitPrice: "$4", minUnits: "40" }],
+  //     stone: [{ unitPrice: "$5", minUnits: "50" }],
+  //     bread: [{ unitPrice: "$6", minUnits: "60" }],
+  //   };
+  //   let i;
+  //   let total = 0;
+  //   let users = [];
+  //   for (i = 0; i < matches.length; i++) {
+  //     total += Number(matches[i].units);
+  //     users.push(matches[i].user);
+  //   }
+  //   let name = req.query.product;
+  //   console.log(name);
+  //   console.log(total);
+  //   if (total >= Number(PRODUCT_DETAILS[name][0].minUnits)) {
+  //     res.send(users);
+  //   } else {
+  //     res.send([]);
+  //   }
+  // });
 });
 
 // anything else falls to this "not found" case
