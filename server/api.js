@@ -111,9 +111,8 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
       Request.find({ _id: ids }).then((matchedRequests) => {
         matchedRequests.forEach((request) => {
           request.isMatched = true;
-          request.save();
+          request.save().then((savedRequest) => res.send(savedRequest));
         });
-        res.send(ids);
       });
       // if (total >= Number(PRODUCT_DETAILS[name][0].minUnits)) {
       //   Request.find({ _id: ids }).then((matchedRequests) => {
@@ -137,10 +136,17 @@ router.get("/requests", (req, res) => {
   });
 });
 
+// router.post("/cancel", auth.ensureLoggedIn, (req, res) => {
+//   Request.findOneAndDelete({ _id: req.body._id }).then((deletedRequest) => {
+//     console.log(deletedRequest);
+//     res.send(deletedRequest);
+//   });
+// });
+
 router.post("/cancel", auth.ensureLoggedIn, (req, res) => {
-  Request.findOneAndDelete({ _id: req.body._id }).then((deletedRequest) =>
-    res.send(deletedRequest)
-  );
+  Request.deleteOne({ _id: req.body._id }).then((deleted) => {
+    res.send(deleted);
+  });
 });
 
 // router.get("/matches", (req, res) => {

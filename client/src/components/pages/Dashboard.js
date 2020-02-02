@@ -21,10 +21,21 @@ class Dashboard extends React.Component {
     });
   }
 
-  handleCancel = (id) => {
-    post("/api/cancel", { _id: id }).then((deletedRequest) => {
+  // handleCancel = (id) => {
+  //   post("/api/cancel", { _id: id }).then((deletedRequest) => {
+  //     const allPendingRequests = this.state.pendingRequests;
+  //     const cancelIndex = allPendingRequests.indexOf(deletedRequest);
+  //     allPendingRequests.splice(cancelIndex, 1);
+  //     this.setState({
+  //       pendingRequests: allPendingRequests,
+  //     });
+  //   });
+  // };
+
+  handleCancel = (request) => {
+    post("/api/cancel", { _id: request._id }).then((deletedRequest) => {
       const allPendingRequests = this.state.pendingRequests;
-      const cancelIndex = allPendingRequests.indexOf(deletedRequest);
+      const cancelIndex = allPendingRequests.indexOf(request);
       allPendingRequests.splice(cancelIndex, 1);
       this.setState({
         pendingRequests: allPendingRequests,
@@ -65,7 +76,7 @@ class Dashboard extends React.Component {
             {request.price}
           </div>
           <div className="request-info-btn-container">
-            <button className="request-cancel-btn" onClick={() => this.handleCancel(request._id)}>
+            <button className="request-cancel-btn" onClick={() => this.handleCancel(request)}>
               Cancel
             </button>
           </div>
