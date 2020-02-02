@@ -11,9 +11,10 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    get("api/requests", { user: this.props.user }).then((requests) =>
-      this.setState({ requests: requests })
-    );
+    // get("api/requests", { user: this.props.user }).then((requests) =>
+    //   this.setState({ requests: requests })
+    // );
+    get("/api/matches", { product: "bricks" });
   }
 
   render() {

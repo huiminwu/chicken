@@ -54,20 +54,19 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
 
 // should pass {product: ""}
 router.get("/requests", (req, res) => {
-  Request.find({ user: req.user._id }).then((requests) => res.send(requests));
+  Request.find({ user: req.user.c_id }).then((requests) => res.send(requests));
 });
 
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
 
-let matches;
-
 router.get("/matches", (req, res) => {
-  Request.find({ product: req.query.product }).then((requests) => (matches = requests));
+  let matches;
+  Request.find({ product: req.query.product }).then((requests) => {
+    matches = requests;
+  });
 });
-
-console.log(matches);
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
