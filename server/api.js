@@ -53,35 +53,65 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
       matches = requests;
       const PRODUCT_DETAILS = {
         flour: [
-          { unitPrice: "$1", minUnits: "10" },
-          { unitPrice: "$2", minUnits: "30" },
+          { unitPrice: "$1.00", minUnits: "30" },
+          { unitPrice: "$2.00", minUnits: "10" },
         ],
-        sugar: [{ unitPrice: "$2", minUnits: "20" }],
-        paper: [{ unitPrice: "$3", minUnits: "30" }],
-        bricks: [{ unitPrice: "$4", minUnits: "40" }],
-        stone: [{ unitPrice: "$5", minUnits: "50" }],
-        bread: [{ unitPrice: "$6", minUnits: "60" }],
+        sugar: [{ unitPrice: "$2.00", minUnits: "20" }],
+        paper: [{ unitPrice: "$3.00", minUnits: "30" }],
+        bricks: [{ unitPrice: "$4.00", minUnits: "40" }],
+        stone: [{ unitPrice: "$5.00", minUnits: "50" }],
+        bread: [{ unitPrice: "$6.00", minUnits: "60" }],
       };
-      let i;
+      // let i;
+      // let total = 0;
+      // let ids = [];
+      // for (i = 0; i < matches.length; i++) {
+      //   total += Number(matches[i].units);
+      //   ids.push(matches[i]._id);
+      // }
+      let name = req.body.product;
+      let thresholds = PRODUCT_DETAILS[name];
+      let i = 0;
+      // first calculation of total
       let total = 0;
       let ids = [];
-      for (i = 0; i < matches.length; i++) {
-        total += Number(matches[i].units);
-        ids.push(matches[i]._id);
+      let j;
+      for (j = 0; j < matches.length; j++) {
+        if (Number(matches[j].price) <= thresholds[i].unitPrice){
+          total += Number(matches[j].units);
+          ids.push(matches[j]._id);
+        }
       }
-      let name = req.body.product;
-      // if it exceeds threshold
-      if (total >= Number(PRODUCT_DETAILS[name][0].minUnits)) {
-        Request.find({ _id: ids }).then((matchedRequests) => {
-          matchedRequests.forEach((request) => {
-            request.isMatched = true;
-            request.save();
-          });
-          res.send(ids);
+      while (total < Number(thresholds[i].minUnits)){
+        i++;
+        if(i === thresholds.length){
+          res.send([]);
+        }
+        for (j = 0; j < matches.length; j++) {
+          if (Number(matches[j].price) <= thresholds[i].unitPrice){
+            total += Number(matches[j].units);
+            ids.push(matches[j]._id);
+          }
+        }
+      };
+      Request.find({ _id: ids }).then((matchedRequests) => {
+        matchedRequests.forEach((request) => {
+          request.isMatched = true;
+          request.save();
         });
-      } else {
-        res.send([]);
-      }
+        res.send(ids);
+      });
+      // if (total >= Number(PRODUCT_DETAILS[name][0].minUnits)) {
+      //   Request.find({ _id: ids }).then((matchedRequests) => {
+      //     matchedRequests.forEach((request) => {
+      //       request.isMatched = true;
+      //       request.save();
+      //     });
+      //     res.send(ids);
+      //   });
+      // } else {
+      //   res.send([]);
+      // }
     });
   });
 });
