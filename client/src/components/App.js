@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { Router } from "@reach/router";
+import { Router, navigate } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import Request from "./pages/Request.js";
 import Dashboard from "./pages/Dashboard.js";
+import Navbar from "./modules/Navbar.js"
+import Landing from "./pages/Landing.js"
 
 import "../utilities.css";
 
@@ -37,34 +39,55 @@ class App extends Component {
     post("/api/login", { token: userToken }).then((user) => {
       this.setState({ userId: user._id });
       post("/api/initsocket", { socketid: socket.id });
-    });
+    }).then(() => navigate("/dashboard"));
   };
 
   handleLogout = () => {
     this.setState({ userId: undefined });
-    post("/api/logout");
+    post("/api/logout").then(() => navigate("/"));
   };
 
   render() {
-    return (
-      <>
-        <Router>
-          <Request
-            path="/request"
+    if (this.state.userId) {
+      return (
+        <>
+          <Navbar
+            creator={this.state.userId}
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
-            userId={this.state.userId}
           />
-          <Dashboard
-            path="/dashboard"
+          <Router>
+            <Request
+              path="/request"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
+            />
+            <Dashboard
+              path="/dashboard"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
+            />
+            <NotFound default />
+          </Router>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Navbar
+            creator={this.state.userId}
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
-            userId={this.state.userId}
           />
-          <NotFound default />
-        </Router>
-      </>
-    );
+          <Router>
+            <Landing path="/" />
+            <NotFound path="/404" />
+          </Router>
+        </>
+      )
+    }
   }
 }
 
