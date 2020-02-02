@@ -85,6 +85,7 @@ class App extends Component {
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
               user={this.state.userId}
+              username={this.state.username}
             />
             <NotFound default />
           </Router>

@@ -120,8 +120,7 @@ class Request extends React.Component {
           </>
         ) : (
             <>
-              <div className="jeff">my name jeff</div>
-              <h1 className="page-title">submit a request</h1>
+              <h1 className="page-title">Submit a Request</h1>
               <div className="request-field">
                 <div className="request-field-label">Product</div>
                 <div className="dropdown-container">

@@ -5,10 +5,6 @@
   margin: auto;
 }
 
-.jeff {
-  font-size: 100px;
-}
-
 .request-field {
   display: flex;
   margin-bottom: 16px;
@@ -66,6 +62,10 @@
   font-size: 12px;
 }
 
+.footer-btn a:focus {
+  outline: none;
+}
+
 .footer-btn a {
   text-decoration: none;
   color: var(--body);
@@ -73,12 +73,20 @@
 
 .footer-btn:hover {
   cursor: pointer;
+  -moz-box-shadow:    0px 0px 9px 2px #ccc;
+  -webkit-box-shadow: 0px 0px 9px 2px #ccc;
+  box-shadow:         0px 0px 9px 2px #ccc;
 }
 
 .submit-more {
   margin: auto;
   display: flex;
   margin-top: 15px;
+}
+
+.submit-btn:focus,
+.submit-more:focus {
+  outline: none;
 }
 
 .submit-btn, .submit-more {
