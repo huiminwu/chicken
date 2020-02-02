@@ -49,7 +49,7 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
     units: req.body.units,
   });
   newRequest.save().then((newRequest) => {
-    Request.find({ product: req.body.product }).then((requests) => {
+    Request.find({ product: req.body.product, isMatched: false }).then((requests) => {
       matches = requests;
       const PRODUCT_DETAILS = {
         flour: [
@@ -77,11 +77,17 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
       let ids = [];
       let j;
       for (j = 0; j < matches.length; j++) {
-        if (Number(matches[j].price) <= thresholds[i].unitPrice) {
+        console.log(matches[j]);
+        if (Number(matches[j].price) <= Number(thresholds[i].unitPrice)) {
+          console.log("here");
+
           total += Number(matches[j].units);
           ids.push(matches[j]._id);
         }
       }
+      console.log(total);
+      console.log(Number(thresholds[i].minUnits));
+      console.log(ids);
       while (total < Number(thresholds[i].minUnits)) {
         i++;
         total = 0;
@@ -90,7 +96,12 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
           res.send([]);
         }
         for (j = 0; j < matches.length; j++) {
-          if (Number(matches[j].price) <= thresholds[i].unitPrice) {
+          console.log(matches[j].price);
+          console.log(thresholds[i].unitPrice);
+          if (
+            Number(matches[j].price.substring(1, matches[j].price.length)) <=
+            Number(thresholds[i].unitPrice.substring(1, thresholds[i].unitPrice.length))
+          ) {
             total += Number(matches[j].units);
             ids.push(matches[j]._id);
           }

@@ -4,7 +4,7 @@ import { Link } from "@reach/router";
 
 import "./Navbar.css";
 import "../../utilities.css";
-import logo from "../../../dist/C.png"
+import logo from "../../../dist/C.png";
 
 const GOOGLE_CLIENT_ID = "601918594543-sdt4mvsgtaamoh1tktkhi5nsf1uuqlsn.apps.googleusercontent.com";
 
@@ -40,14 +40,14 @@ class Navbar extends Component {
                 />
               </>
             ) : (
-                <GoogleLogin
-                  className="Navbar-opts_login"
-                  clientId={GOOGLE_CLIENT_ID}
-                  buttonText="Login"
-                  onSuccess={this.props.handleLogin}
-                  onFailure={(err) => console.log(err)}
-                />
-              )}
+              <GoogleLogin
+                className="Navbar-opts_login"
+                clientId={GOOGLE_CLIENT_ID}
+                buttonText="Login"
+                onSuccess={this.props.handleLogin}
+                onFailure={(err) => console.log(err)}
+              />
+            )}
           </div>
         </div>
       </>

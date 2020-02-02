@@ -79,7 +79,7 @@ class Dashboard extends React.Component {
           <title>Dashboard | Chip</title>
         </Helmet>
         <div className="dashboard-container">
-          <div className="welcome">Welcome {this.props.username} </div>
+          <div className="welcome">Welcome, {this.props.username}!</div>
           <h3 className="dashboard-subheader">Matched Requests</h3>
           <div className="request-info-grid">{matchedRequestList}</div>
           <h3 className="dashboard-subheader">Pending Requests</h3>
