@@ -11,9 +11,11 @@ class Dashboard extends React.Component {
   componentDidMount() { }
 
   render() {
+    get("/api/matches", { product: "bricks" });
     return (
       <div className="page-container">
-        <div className="dashboard-container">he</div>
+        <div className="dashboard-container">he
+        </div>
       </div>
     );
   }
