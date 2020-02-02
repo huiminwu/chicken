@@ -28,7 +28,7 @@ class Navbar extends Component {
                   Dashboard
                 </Link>
                 <Link to="/request/" className="navBar-link">
-                  Requests
+                  Request
                 </Link>
                 <GoogleLogout
                   className="logout-btn Navbar-opts_login"

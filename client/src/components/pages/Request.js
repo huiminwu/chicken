@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../pages/Request.css";
+import "./Request.css";
 
 import { get, post } from "../../utilities.js";
 
@@ -44,7 +44,7 @@ class Request extends React.Component {
         price: this.state.price,
         units: this.state.units,
       };
-      post("/api/requests", params).then((request) => this.setState({ submitted: true }));
+      post("/api/requests", params).then((requests) => this.setState({ submitted: true }));
     }
   };
 

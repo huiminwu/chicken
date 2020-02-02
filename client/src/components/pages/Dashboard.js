@@ -1,4 +1,5 @@
 import React from "react";
+import "./Dashboard.css";
 
 import { get, post } from "../../utilities.js";
 
@@ -14,16 +15,28 @@ class Dashboard extends React.Component {
     get("/api/requests", { user: this.props.user }).then((requests) =>
       this.setState({ requests: requests })
     );
-    get("/api/matches", { product: "bricks" }).then((users) => console.log(users));
   }
 
   render() {
-    let requestList = <div>Loading...</div>;
+    let pendingRequestList = <div>Loading...</div>;
+    let matchedRequestList = <div>Loading...</div>;
     if (this.state.requests) {
-      requestList = this.state.requests.map((request, k) => (
+      const pendingRequests = this.state.requests.filter((request) => !request.isMatched);
+      const matchedRequests = this.state.requests.filter((request) => request.isMatched);
+
+      pendingRequestList = pendingRequests.map((request, k) => (
         <div key={k} className="request-info-container">
           {request.product}
           {request.units}
+          {request.price}
+        </div>
+      ));
+
+      matchedRequestList = matchedRequests.map((request, k) => (
+        <div key={k} className="request-info-container">
+          {request.product}
+          {request.units}
+          {request.price}
         </div>
       ));
     }
@@ -32,7 +45,8 @@ class Dashboard extends React.Component {
       <div className="page-container">
         <div className="dashboard-container">
           <div className="welcome">Welcome</div>
-          {requestList}
+          {pendingRequestList}
+          {matchedRequestList}
         </div>
       </div>
     );

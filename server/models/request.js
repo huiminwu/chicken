@@ -6,6 +6,7 @@ const RequestSchema = new mongoose.Schema({
   product: String,
   price: String,
   units: String,
+  isMatched: { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model("request", RequestSchema);
