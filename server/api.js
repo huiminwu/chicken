@@ -12,7 +12,7 @@ const express = require("express");
 // import models so we can interact with the database
 // const User = require("./models/user");
 
-const Request = require("./models/request")
+const Request = require("./models/request");
 
 // import authentication library
 const auth = require("./auth");
@@ -41,25 +41,35 @@ router.post("/initsocket", (req, res) => {
 });
 
 // should pass {user: "", product: "", units: "", id: ""}
-router.post("/requests", (req, res) => {
+router.post("/requests", auth.ensureLoggedIn, (req, res) => {
   const newRequest = new Request({
+    user: req.user._id,
     product: req.body.product,
+    price: req.body.price,
     units: req.body.units,
-    id: req.body.id
+    id: req.body.id,
   });
-  newRequest.save().then(request => res.send(request));
+  newRequest.save().then((request) => res.send(request));
 });
 
 // should pass {product: ""}
 router.get("/requests", (req, res) => {
-  Request.find({ product: req.query.product }).then(requests =>
-    res.send(requests)
-  );
+  Request.find({ user: req.user._id }).then((requests) => res.send(requests));
 });
 
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+
+let matches;
+
+router.get("/requests", (req, res) => {
+  Request.find({ product: req.query.product}).then(requests =>
+    matches = requests
+  );
+});
+
+console.log(matches);
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
