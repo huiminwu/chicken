@@ -66,6 +66,11 @@
   font-size: 12px;
 }
 
+.footer-btn a {
+  text-decoration: none;
+  color: var(--body);
+}
+
 .footer-btn:hover {
   cursor: pointer;
 }

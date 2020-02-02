@@ -77,23 +77,23 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
       let ids = [];
       let j;
       for (j = 0; j < matches.length; j++) {
-        if (Number(matches[j].price) <= thresholds[i].unitPrice){
+        if (Number(matches[j].price) <= thresholds[i].unitPrice) {
           total += Number(matches[j].units);
           ids.push(matches[j]._id);
         }
       }
-      while (total < Number(thresholds[i].minUnits)){
+      while (total < Number(thresholds[i].minUnits)) {
         i++;
-        if(i === thresholds.length){
+        if (i === thresholds.length) {
           res.send([]);
         }
         for (j = 0; j < matches.length; j++) {
-          if (Number(matches[j].price) <= thresholds[i].unitPrice){
+          if (Number(matches[j].price) <= thresholds[i].unitPrice) {
             total += Number(matches[j].units);
             ids.push(matches[j]._id);
           }
         }
-      };
+      }
       Request.find({ _id: ids }).then((matchedRequests) => {
         matchedRequests.forEach((request) => {
           request.isMatched = true;

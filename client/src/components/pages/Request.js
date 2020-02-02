@@ -50,7 +50,6 @@ class Request extends React.Component {
   };
 
   render() {
-    const PRODUCT_TYPES = ["flour", "sugar", "paper", "bricks", "stone", "bread"];
     const PRODUCT_DETAILS = {
       flour: [
         { unitPrice: "$1.00", minUnits: "30" },
@@ -67,7 +66,7 @@ class Request extends React.Component {
 
     const productDropdown = (
       <div className="dropdown-menu">
-        {PRODUCT_TYPES.map((product, k) => (
+        {Object.keys(PRODUCT_DETAILS).map((product, k) => (
           <div
             key={k}
             className="dropdown-btn"

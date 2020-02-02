@@ -20,12 +20,8 @@
 :root {
   --accent: #396dff;
   --background: #f5f5f5;
-  --primary--dim: #6987db;
-  --darkgrey: #d4d4d4;
-  --medgrey: #e0e0e0;
-  --grey: #f7f7f7;
-  --white: #fff;
-
+  --lightbackground: #fafafa;
+  --body: #3d3d3d;
   --borders: #858585;
   --hover: #e0e0e0;
 
@@ -40,6 +36,7 @@ body {
   padding: 0;
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
+  color: var(--body);
   background-color: var(--background);
 }
 

@@ -10,6 +10,7 @@
   width: 25%;
   border: 1px solid var(--borders);
   border-radius: 10px;
+  background-color: var(--lightbackground);
   padding: 16px;
   margin-bottom: 20px;
   margin-right: 32px;
@@ -46,6 +47,15 @@
   border-radius: 5px;
   font-family: "Open Sans", sans-serif;
   font-size: 12px;
+}
+
+.request-cancel-btn:hover,
+.request-confirm-btn:hover {
+  cursor: pointer;
+}
+
+.request-cancel-btn {
+  background: var(--background);
 }
 
 .request-confirm-btn {
