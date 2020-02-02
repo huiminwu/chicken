@@ -104,7 +104,7 @@ class App extends Component {
           />
           <Router>
             <Landing path="/" />
-            <NotFound path="/404" />
+            <NotFound default />
           </Router>
         </>
       );
