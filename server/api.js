@@ -78,7 +78,10 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
       let j;
       for (j = 0; j < matches.length; j++) {
         console.log(matches[j]);
-        if (Number(matches[j].price) <= Number(thresholds[i].unitPrice)) {
+        if (
+          Number(matches[j].price.substring(1, matches[j].price.length)) >=
+          Number(thresholds[i].unitPrice.substring(1, thresholds[i].unitPrice.length))
+        ) {
           console.log("here");
 
           total += Number(matches[j].units);
@@ -94,12 +97,13 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
         ids = [];
         if (i === thresholds.length) {
           res.send([]);
+          return;
         } else {
           for (j = 0; j < matches.length; j++) {
             console.log(matches[j].price);
             console.log(thresholds[i].unitPrice);
             if (
-              Number(matches[j].price.substring(1, matches[j].price.length)) <=
+              Number(matches[j].price.substring(1, matches[j].price.length)) >=
               Number(thresholds[i].unitPrice.substring(1, thresholds[i].unitPrice.length))
             ) {
               total += Number(matches[j].units);
@@ -111,6 +115,7 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
       Request.find({ _id: ids }).then((matchedRequests) => {
         matchedRequests.forEach((request) => {
           request.isMatched = true;
+          request.price = thresholds[i].unitPrice;
           request.save().then((savedRequest) => res.send(savedRequest));
         });
       });
