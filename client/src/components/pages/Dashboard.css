@@ -14,3 +14,41 @@
   margin-bottom: 20px;
   margin-right: 32px;
 }
+
+.request-info-product {
+  margin-bottom: 8px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.request-info-property {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.request-info-label {
+  color: #6e6e6e;
+}
+
+.request-info-btn-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.request-cancel-btn,
+.request-confirm-btn {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--borders);
+  border-radius: 5px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+}
+
+.request-confirm-btn {
+  background: var(--accent);
+  color: white;
+}

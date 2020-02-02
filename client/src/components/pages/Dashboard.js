@@ -36,23 +36,39 @@ class Dashboard extends React.Component {
     let pendingRequestList = <div>Loading...</div>;
     let matchedRequestList = <div>Loading...</div>;
     if (this.state.pendingRequests && this.state.matchedRequests) {
-      pendingRequestList = this.state.pendingRequests.map((request, k) => (
-        <div key={k} className="request-info-container">
-          <div className="request-info-product">{request.product}</div>
-          <div className="request-info-property">{request.units}</div>
-          <div className="request-info-property">{request.price}</div>
-          <button className="request-info-btn" onClick={() => this.handleCancel(request._id)}>
-            Cancel
-          </button>
-        </div>
-      ));
-
       matchedRequestList = this.state.matchedRequests.map((request, k) => (
         <div key={k} className="request-info-container">
           <div className="request-info-product">{request.product}</div>
-          <div className="request-info-property">{request.units}</div>
-          <div className="request-info-property">{request.price}</div>
-          <button className="request-info-btn">Confirm</button>
+          <div className="request-info-property">
+            <span className="request-info-label">Quantity</span>
+            {request.units}
+          </div>
+          <div className="request-info-property">
+            <span className="request-info-label">Unit Price</span>
+            {request.price}
+          </div>
+          <div className="request-info-btn-container">
+            <button className="request-confirm-btn">Confirm</button>
+          </div>
+        </div>
+      ));
+
+      pendingRequestList = this.state.pendingRequests.map((request, k) => (
+        <div key={k} className="request-info-container">
+          <div className="request-info-product">{request.product}</div>
+          <div className="request-info-property">
+            <span className="request-info-label">Quantity</span>
+            {request.units}
+          </div>
+          <div className="request-info-property">
+            <span className="request-info-label">Unit Price</span>
+            {request.price}
+          </div>
+          <div className="request-info-btn-container">
+            <button className="request-cancel-btn" onClick={() => this.handleCancel(request._id)}>
+              Cancel
+            </button>
+          </div>
         </div>
       ));
     }

@@ -18,7 +18,7 @@ class Request extends React.Component {
     };
   }
 
-  componentDidMount() { }
+  componentDidMount() {}
 
   toggleDropdown = (dropdown) => {
     if (this.state.showDropdown === dropdown) {
@@ -103,52 +103,52 @@ class Request extends React.Component {
         </Helmet>
         {this.state.submitted ? (
           <div>
-            Your request has been submitted! Your dashboard will be updated when it's ready to be
+            Your request has been submitted! We'll update your dashboard when it's ready to be
             placed.
           </div>
         ) : (
-            <>
-              <div className="jeff">my name jeff</div>
-              <h1 className="page-title">submit a request</h1>
-              <div className="request-field">
-                <div className="request-field-label">Product</div>
-                <div className="dropdown-container">
-                  <div className="dropdown-first-btn" onClick={() => this.toggleDropdown("product")}>
-                    {this.state.product}
-                  </div>
-                  {this.state.showDropdown === "product" && productDropdown}
+          <>
+            <div className="jeff">my name jeff</div>
+            <h1 className="page-title">submit a request</h1>
+            <div className="request-field">
+              <div className="request-field-label">Product</div>
+              <div className="dropdown-container">
+                <div className="dropdown-first-btn" onClick={() => this.toggleDropdown("product")}>
+                  {this.state.product}
                 </div>
+                {this.state.showDropdown === "product" && productDropdown}
               </div>
-              <div className="request-field">
-                <div className="request-field-label">Price</div>
-                <div className="dropdown-container">
-                  <div className="dropdown-first-btn" onClick={() => this.toggleDropdown("price")}>
-                    {this.state.price}
-                  </div>
-                  {this.state.showDropdown === "price" && priceDropdown}
+            </div>
+            <div className="request-field">
+              <div className="request-field-label">Price</div>
+              <div className="dropdown-container">
+                <div className="dropdown-first-btn" onClick={() => this.toggleDropdown("price")}>
+                  {this.state.price}
                 </div>
+                {this.state.showDropdown === "price" && priceDropdown}
               </div>
-              <div className="request-field u-flex-alignCenter">
-                <div className="request-field-label">Quantity</div>
-                <input
-                  type="text"
-                  onChange={(event) => this.handleFieldChange("units", event.target.value)}
-                />
-              </div>
-              <div className="request-footer">
-                {this.state.error}
-                <button className="footer-btn">
-                  <a href="/dashboard">Cancel</a>
-                </button>
-                <button
-                  className="footer-btn submit-btn"
-                  onClick={(event) => this.handleSubmit(event)}
-                >
-                  Submit
+            </div>
+            <div className="request-field u-flex-alignCenter">
+              <div className="request-field-label">Quantity</div>
+              <input
+                type="text"
+                onChange={(event) => this.handleFieldChange("units", event.target.value)}
+              />
+            </div>
+            <div className="request-footer">
+              {this.state.error}
+              <button className="footer-btn">
+                <a href="/dashboard">Cancel</a>
               </button>
-              </div>
-            </>
-          )}
+              <button
+                className="footer-btn submit-btn"
+                onClick={(event) => this.handleSubmit(event)}
+              >
+                Submit
+              </button>
+            </div>
+          </>
+        )}
       </div>
     );
   }
