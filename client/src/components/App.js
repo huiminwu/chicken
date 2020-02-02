@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
-import Home from "./pages/Home.js";
+import Request from "./pages/Request.js";
+import Dashboard from "./pages/Dashboard.js";
 
 import "../utilities.css";
 
@@ -48,8 +49,14 @@ class App extends Component {
     return (
       <>
         <Router>
-          <Home
-            path="/"
+          <Request
+            path="/request"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}
+          />
+          <Dashboard
+            path="/dashboard"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
