@@ -1,6 +1,8 @@
 .page-container {
   padding: 32px;
+  width: 60vw;
   height: 100%;
+  margin: auto;
 }
 
 .jeff {
@@ -13,7 +15,14 @@
 }
 
 .request-field-label {
-  width: 20vw;
+  width: 30vw;
+}
+
+.request-field input {
+  padding: 4px;
+  border: 1px solid var(--borders);
+  border-radius: 5px;
+  font-family: "Open Sans", sans-serif;
 }
 
 .dropdown-first-btn {
@@ -35,7 +44,31 @@
   max-height: 25vh;
   min-width: 10vw;
   padding: 12px;
-  border: 1px solid black;
+  border: 1px solid var(--borders);
   border-radius: 3px;
   overflow-y: scroll;
+}
+
+.request-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.footer-btn {
+  padding: 8px 10px;
+  margin-left: 16px;
+  border: 1px solid var(--borders);
+  border-radius: 5px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+}
+
+.footer-btn:hover {
+  cursor: pointer;
+}
+
+.submit-btn {
+  background: var(--accent);
+  color: white;
 }

@@ -48,13 +48,17 @@ class Request extends React.Component {
   };
 
   render() {
-    const PRODUCT_TYPES = ["flour", "sugar", "paper", "bricks", "stone"];
+    const PRODUCT_TYPES = ["flour", "sugar", "paper", "bricks", "stone", "bread"];
     const PRODUCT_DETAILS = {
-      flour: [{ unitPrice: "$1", minUnits: "10" }],
+      flour: [
+        { unitPrice: "$1", minUnits: "10" },
+        { unitPrice: "$2", minUnits: "30" },
+      ],
       sugar: [{ unitPrice: "$2", minUnits: "20" }],
       paper: [{ unitPrice: "$3", minUnits: "30" }],
       bricks: [{ unitPrice: "$4", minUnits: "40" }],
       stone: [{ unitPrice: "$5", minUnits: "50" }],
+      bread: [{ unitPrice: "$6", minUnits: "60" }],
     };
 
     const productPrices = PRODUCT_DETAILS[this.state.product];
@@ -112,17 +116,22 @@ class Request extends React.Component {
             {this.state.showDropdown === "price" && priceDropdown}
           </div>
         </div>
-        <div className="request-field">
+        <div className="request-field u-flex-alignCenter">
           <div className="request-field-label">Quantity</div>
           <input
             type="text"
             onChange={(event) => this.handleFieldChange("units", event.target.value)}
           />
         </div>
-        <button className="submit-btn" onClick={(event) => this.handleSubmit(event)}>
-          Submit
-        </button>
-        {this.state.error}
+        <div className="request-footer">
+          {this.state.error}
+          <button className="footer-btn">
+            <a href="/dashboard">Cancel</a>
+          </button>
+          <button className="footer-btn submit-btn" onClick={(event) => this.handleSubmit(event)}>
+            Submit
+          </button>
+        </div>
       </div>
     );
   }
