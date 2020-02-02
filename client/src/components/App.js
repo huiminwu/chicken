@@ -3,8 +3,8 @@ import { Router, navigate } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import Request from "./pages/Request.js";
 import Dashboard from "./pages/Dashboard.js";
-import Navbar from "./modules/Navbar.js"
-import Landing from "./pages/Landing.js"
+import Navbar from "./modules/Navbar.js";
+import Landing from "./pages/Landing.js";
 
 import "../utilities.css";
 
@@ -36,10 +36,12 @@ class App extends Component {
   handleLogin = (res) => {
     console.log(`Logged in as ${res.profileObj.name}`);
     const userToken = res.tokenObj.id_token;
-    post("/api/login", { token: userToken }).then((user) => {
-      this.setState({ userId: user._id });
-      post("/api/initsocket", { socketid: socket.id });
-    }).then(() => navigate("/dashboard"));
+    post("/api/login", { token: userToken })
+      .then((user) => {
+        this.setState({ userId: user._id });
+        post("/api/initsocket", { socketid: socket.id });
+      })
+      .then(() => navigate("/dashboard"));
   };
 
   handleLogout = () => {
@@ -52,7 +54,7 @@ class App extends Component {
       return (
         <>
           <Navbar
-            creator={this.state.userId}
+            user={this.state.userId}
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
           />
@@ -61,13 +63,13 @@ class App extends Component {
               path="/request"
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
-              userId={this.state.userId}
+              user={this.state.userId}
             />
             <Dashboard
               path="/dashboard"
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
-              userId={this.state.userId}
+              user={this.state.userId}
             />
             <NotFound default />
           </Router>
@@ -86,7 +88,7 @@ class App extends Component {
             <NotFound path="/404" />
           </Router>
         </>
-      )
+      );
     }
   }
 }

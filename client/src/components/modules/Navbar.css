@@ -1,12 +1,12 @@
-.navBar-container{
+.navBar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.navBar-title{
+.navBar-title {
   padding: 10px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .navBar-linkContainer {
@@ -14,9 +14,10 @@
   padding: 10px;
 }
 
-.navBar-link{
+.navBar-link {
   padding: 10px;
-  font-family: 'Open Sans', sans-serif;
+  margin-right: 12px;
+  font-family: "Open Sans", sans-serif;
   text-decoration: none;
   color: rgb(46, 43, 43);
 }

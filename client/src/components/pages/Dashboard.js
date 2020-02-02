@@ -5,15 +5,30 @@ import { get, post } from "../../utilities.js";
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      requests: null,
+    };
   }
 
-  componentDidMount() { }
+  componentDidMount() {
+    // get("api/requests", { user: this.props.user }).then((requests) =>
+    //   this.setState({ requests: requests })
+    // );
+    get("/api/matches", { product: "bricks" });
+  }
 
   render() {
+    let requestList = <div>Loading...</div>;
+    if (this.state.requests) {
+      requestList = this.state.requests.map((request) => <div>{request.product}</div>);
+    }
+
     return (
       <div className="page-container">
-        <div className="dashboard-container">he</div>
+        <div className="dashboard-container">
+          <div className="welcome">Welcome</div>
+          {requestList}
+        </div>
       </div>
     );
   }

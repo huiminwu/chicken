@@ -54,7 +54,7 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
 
 // should pass {product: ""}
 router.get("/requests", (req, res) => {
-  Request.find({ user: req.user._id }).then((requests) => res.send(requests));
+  Request.find({ user: req.user.c_id }).then((requests) => res.send(requests));
 });
 
 // |------------------------------|
