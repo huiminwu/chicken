@@ -94,16 +94,17 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
         ids = [];
         if (i === thresholds.length) {
           res.send([]);
-        }
-        for (j = 0; j < matches.length; j++) {
-          console.log(matches[j].price);
-          console.log(thresholds[i].unitPrice);
-          if (
-            Number(matches[j].price.substring(1, matches[j].price.length)) <=
-            Number(thresholds[i].unitPrice.substring(1, thresholds[i].unitPrice.length))
-          ) {
-            total += Number(matches[j].units);
-            ids.push(matches[j]._id);
+        } else {
+          for (j = 0; j < matches.length; j++) {
+            console.log(matches[j].price);
+            console.log(thresholds[i].unitPrice);
+            if (
+              Number(matches[j].price.substring(1, matches[j].price.length)) <=
+              Number(thresholds[i].unitPrice.substring(1, thresholds[i].unitPrice.length))
+            ) {
+              total += Number(matches[j].units);
+              ids.push(matches[j]._id);
+            }
           }
         }
       }
