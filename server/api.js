@@ -63,10 +63,8 @@ router.get("/requests", (req, res) => {
 
 let matches;
 
-router.get("/requests", (req, res) => {
-  Request.find({ product: req.query.product}).then(requests =>
-    matches = requests
-  );
+router.get("/matches", (req, res) => {
+  Request.find({ product: req.query.product }).then((requests) => (matches = requests));
 });
 
 console.log(matches);

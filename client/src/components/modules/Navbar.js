@@ -5,7 +5,7 @@ import { Link } from "@reach/router";
 import "./Navbar.css";
 import "../../utilities.css";
 
-const GOOGLE_CLIENT_ID = "601918594543-sdt4mvsgtaamoh1tktkhi5nsf1uuqlsn.apps.googleusercontent.com"
+const GOOGLE_CLIENT_ID = "601918594543-sdt4mvsgtaamoh1tktkhi5nsf1uuqlsn.apps.googleusercontent.com";
 
 class Navbar extends Component {
   constructor(props) {
@@ -22,33 +22,31 @@ class Navbar extends Component {
             </Link>
           </div>
           <div className="navBar-linkContainer">
-            {
-              this.props.creator ? (
-                <>
-                  <Link to="/dashboard/" className="navBar-link">
-                    Dashboard
-                  </Link>
-                  <Link to="/request/" className="navBar-link">
-                    Requests
-                  </Link>
-                  <GoogleLogout
-                    className="logout-btn Navbar-opts_login"
-                    clientId={GOOGLE_CLIENT_ID}
-                    buttonText="Logout"
-                    onLogoutSuccess={this.props.handleLogout}
-                    onFailure={(err) => console.log(err)}
-                  />
-                </>
-              ) : (
-                  <GoogleLogin
-                    className="Navbar-opts_login"
-                    clientId={GOOGLE_CLIENT_ID}
-                    buttonText="Login"
-                    onSuccess={this.props.handleLogin}
-                    onFailure={(err) => console.log(err)}
-                  />
-                )
-            }
+            {this.props.user ? (
+              <>
+                <Link to="/dashboard/" className="navBar-link">
+                  Dashboard
+                </Link>
+                <Link to="/request/" className="navBar-link">
+                  Requests
+                </Link>
+                <GoogleLogout
+                  className="logout-btn Navbar-opts_login"
+                  clientId={GOOGLE_CLIENT_ID}
+                  buttonText="Logout"
+                  onLogoutSuccess={this.props.handleLogout}
+                  onFailure={(err) => console.log(err)}
+                />
+              </>
+            ) : (
+              <GoogleLogin
+                className="Navbar-opts_login"
+                clientId={GOOGLE_CLIENT_ID}
+                buttonText="Login"
+                onSuccess={this.props.handleLogin}
+                onFailure={(err) => console.log(err)}
+              />
+            )}
           </div>
         </div>
       </>
