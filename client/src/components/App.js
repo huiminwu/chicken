@@ -5,6 +5,7 @@ import Request from "./pages/Request.js";
 import Dashboard from "./pages/Dashboard.js";
 import Navbar from "./modules/Navbar.js";
 import Landing from "./pages/Landing.js";
+import Confirm from "./pages/Confirm.js"
 import { Helmet } from "react-helmet";
 
 import "../utilities.css";
@@ -86,6 +87,9 @@ class App extends Component {
               handleLogout={this.handleLogout}
               user={this.state.userId}
               username={this.state.username}
+            />
+            <Confirm
+              path="/confirm"
             />
             <NotFound default />
           </Router>

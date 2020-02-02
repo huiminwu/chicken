@@ -3,6 +3,7 @@ import "./Dashboard.css";
 
 import { get, post } from "../../utilities.js";
 import { Helmet } from "react-helmet";
+import { navigate } from "@reach/router";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -21,16 +22,17 @@ class Dashboard extends React.Component {
     });
   }
 
-  // handleCancel = (id) => {
-  //   post("/api/cancel", { _id: id }).then((deletedRequest) => {
-  //     const allPendingRequests = this.state.pendingRequests;
-  //     const cancelIndex = allPendingRequests.indexOf(deletedRequest);
-  //     allPendingRequests.splice(cancelIndex, 1);
-  //     this.setState({
-  //       pendingRequests: allPendingRequests,
-  //     });
-  //   });
-  // };
+  handleConfirm = (request) => {
+    post("/api/cancel", { _id: request._id }).then((deletedRequest) => {
+      const allMatchedRequests = this.state.matchedRequests;
+      const cancelIndex = allMatchedRequests.indexOf(deletedRequest);
+      allMatchedRequests.splice(cancelIndex, 1);
+      this.setState({
+        matchedRequests: allMatchedRequests,
+      });
+    });
+    navigate("/confirm");
+  }
 
   handleCancel = (request) => {
     post("/api/cancel", { _id: request._id }).then((deletedRequest) => {
@@ -59,7 +61,7 @@ class Dashboard extends React.Component {
             {request.price}
           </div>
           <div className="request-info-btn-container">
-            <button className="request-confirm-btn">Confirm</button>
+            <button onClick={() => this.handleConfirm(request)} className="request-confirm-btn">Confirm</button>
           </div>
         </div>
       ));
