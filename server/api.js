@@ -63,13 +63,37 @@ router.get("/requests", (req, res) => {
 
 let matches;
 
-router.get("/requests", (req, res) => {
-  Request.find({ product: req.query.product}).then(requests =>
-    matches = requests
+router.get("/matches", (req, res) => {
+  Request.find({ product: req.query.product}).then(requests => {
+    matches = requests;
+    const PRODUCT_DETAILS = {
+      flour: [
+        { unitPrice: "$1", minUnits: "10" },
+        { unitPrice: "$2", minUnits: "30" },
+      ],
+      sugar: [{ unitPrice: "$2", minUnits: "20" }],
+      paper: [{ unitPrice: "$3", minUnits: "30" }],
+      bricks: [{ unitPrice: "$4", minUnits: "40" }],
+      stone: [{ unitPrice: "$5", minUnits: "50" }],
+      bread: [{ unitPrice: "$6", minUnits: "60" }],
+    };
+    let i;
+    let total;
+    let users = [];
+    for (i = 0; i < matches.length; i++){
+      total += Number(matches[i].units);
+      users.push(matches[i].user);
+    }
+    let name = req.query.product;
+    if(total >= Number(PRODUCT_DETAILS[name][0].minUnits)){
+      res.send(users);
+    }
+    else{
+      res.send([]);
+    }
+  };
   );
 });
-
-console.log(matches);
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
