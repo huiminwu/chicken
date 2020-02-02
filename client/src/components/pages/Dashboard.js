@@ -22,8 +22,8 @@ class Dashboard extends React.Component {
     });
   }
 
-  handleConfirm = (id) => {
-    post("/api/cancel", { _id: id }).then((deletedRequest) => {
+  handleConfirm = (request) => {
+    post("/api/cancel", { _id: request._id }).then((deletedRequest) => {
       const allMatchedRequests = this.state.matchedRequests;
       const cancelIndex = allMatchedRequests.indexOf(deletedRequest);
       allMatchedRequests.splice(cancelIndex, 1);
@@ -34,10 +34,10 @@ class Dashboard extends React.Component {
     navigate("/confirm");
   }
 
-  handleCancel = (id) => {
-    post("/api/cancel", { _id: id }).then((deletedRequest) => {
+  handleCancel = (request) => {
+    post("/api/cancel", { _id: request._id }).then((deletedRequest) => {
       const allPendingRequests = this.state.pendingRequests;
-      const cancelIndex = allPendingRequests.indexOf(deletedRequest);
+      const cancelIndex = allPendingRequests.indexOf(request);
       allPendingRequests.splice(cancelIndex, 1);
       this.setState({
         pendingRequests: allPendingRequests,
@@ -61,7 +61,7 @@ class Dashboard extends React.Component {
             {request.price}
           </div>
           <div className="request-info-btn-container">
-            <button onClick={() => this.handleConfirm(request._id)} className="request-confirm-btn">Confirm</button>
+            <button onClick={() => this.handleConfirm(request)} className="request-confirm-btn">Confirm</button>
           </div>
         </div>
       ));
@@ -78,7 +78,7 @@ class Dashboard extends React.Component {
             {request.price}
           </div>
           <div className="request-info-btn-container">
-            <button className="request-cancel-btn" onClick={() => this.handleCancel(request._id)}>
+            <button className="request-cancel-btn" onClick={() => this.handleCancel(request)}>
               Cancel
             </button>
           </div>
