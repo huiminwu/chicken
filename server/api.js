@@ -45,6 +45,7 @@ router.post("/requests", auth.ensureLoggedIn, (req, res) => {
   const newRequest = new Request({
     user: req.user._id,
     product: req.body.product,
+    price: req.body.price,
     units: req.body.units,
     id: req.body.id,
   });

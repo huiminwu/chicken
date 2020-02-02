@@ -8,10 +8,10 @@ class Request extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: null,
-      price: null,
+      product: "Choose a product...",
+      price: "Choose a price...",
       units: null,
-      // showDropdown: null,
+      showDropdown: null,
       error: null,
     };
   }
@@ -26,40 +26,24 @@ class Request extends React.Component {
     }
   };
 
-  handleProductChange = (product) => {
-    this.setState({ product: product });
+  handleFieldChange = (field, value) => {
+    this.setState({ [field]: value, showDropdown: null, error: null });
   };
 
-  // handleFieldChange = (field, event) => {
-  //   this.setState({ [field]: event.target.value });
-  // };
-
-  // handleProductChange = (event) => {
-  //   this.setState({ product: event.target.value });
-  // };
-
-  handlePriceChange = (event) => {
-    this.setState({ price: event.target.value });
-  };
-
-  handleQuantityChange = (event) => {
-    this.setState({ units: event.target.value });
-  };
-
-  handleSubmit = (event) => {
-    if (!this.state.product) {
+  handleSubmit = () => {
+    if (this.state.product === "Choose a product...") {
       this.setState({ error: "Please choose a product." });
-    } else if (!this.state.price) {
+    } else if (this.state.price === "Choose a price...") {
       this.setState({ error: "Please choose a price." });
     } else if (this.state.units <= 0) {
       this.setState({ error: "Please choose a valid quantity." });
     } else {
       const params = {
         product: this.state.product,
+        price: this.state.price,
         units: this.state.units,
       };
       post("/api/requests", params).then((request) => console.log(request));
-      event.preventDefault();
     }
   };
 
@@ -78,7 +62,11 @@ class Request extends React.Component {
     const productDropdown = (
       <div className="dropdown-menu">
         {PRODUCT_TYPES.map((product, k) => (
-          <div key={k} className="dropdown-btn" onClick={() => this.handleProductChange(product)}>
+          <div
+            key={k}
+            className="dropdown-btn"
+            onClick={() => this.handleFieldChange("product", product)}
+          >
             {product}
           </div>
         ))}
@@ -86,14 +74,14 @@ class Request extends React.Component {
     );
 
     let priceDropdown = null;
-    if (this.state.product) {
+    if (this.state.product !== "Choose a product...") {
       priceDropdown = (
         <div className="dropdown-menu">
           {productPrices.map((price, k) => (
             <div
               key={k}
               className="dropdown-btn"
-              onClick={() => this.handlePriceChange(price.unitPrice)}
+              onClick={() => this.handleFieldChange("price", price.unitPrice)}
             >
               {price.unitPrice}
             </div>
@@ -110,7 +98,7 @@ class Request extends React.Component {
           <div className="request-field-label">Product</div>
           <div className="dropdown-container">
             <div className="dropdown-first-btn" onClick={() => this.toggleDropdown("product")}>
-              Choose a product...
+              {this.state.product}
             </div>
             {this.state.showDropdown === "product" && productDropdown}
           </div>
@@ -119,14 +107,17 @@ class Request extends React.Component {
           <div className="request-field-label">Price</div>
           <div className="dropdown-container">
             <div className="dropdown-first-btn" onClick={() => this.toggleDropdown("price")}>
-              Choose a price...
+              {this.state.price}
             </div>
             {this.state.showDropdown === "price" && priceDropdown}
           </div>
         </div>
         <div className="request-field">
           <div className="request-field-label">Quantity</div>
-          <input type="text" onChange={this.handleUnitsChange} />
+          <input
+            type="text"
+            onChange={(event) => this.handleFieldChange("units", event.target.value)}
+          />
         </div>
         <button className="submit-btn" onClick={(event) => this.handleSubmit(event)}>
           Submit
