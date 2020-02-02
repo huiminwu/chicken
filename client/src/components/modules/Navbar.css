@@ -1,0 +1,22 @@
+.navBar-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navBar-title{
+  padding: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.navBar-linkContainer {
+  display: flex;
+  padding: 10px;
+}
+
+.navBar-link{
+  padding: 10px;
+  font-family: 'Open Sans', sans-serif;
+  text-decoration: none;
+  color: rgb(46, 43, 43);
+}

@@ -1,0 +1,5 @@
+.title,
+.tagline {
+  display: flex;
+  justify-content: center;
+}
