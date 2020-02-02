@@ -12,7 +12,7 @@ class Landing extends Component {
     return (
       <>
         <div className="landing-Container">
-          <h1 className="title">chip</h1>
+          <h1 className="title">Chip</h1>
           <p className="tagline">
             small prices for small businesses
           </p>

@@ -1,0 +1,5 @@
+.notFound,
+.message {
+  display: flex;
+  justify-content: center;
+}

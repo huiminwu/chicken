@@ -2,6 +2,7 @@ import React from "react";
 import "./Dashboard.css";
 
 import { get, post } from "../../utilities.js";
+import { Helmet } from "react-helmet";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -43,6 +44,9 @@ class Dashboard extends React.Component {
 
     return (
       <div className="page-container">
+        <Helmet>
+          <title>Dashboard | Chip</title>
+        </Helmet>
         <div className="dashboard-container">
           <div className="welcome">Welcome</div>
           {pendingRequestList}

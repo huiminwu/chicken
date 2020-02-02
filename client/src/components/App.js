@@ -5,6 +5,7 @@ import Request from "./pages/Request.js";
 import Dashboard from "./pages/Dashboard.js";
 import Navbar from "./modules/Navbar.js";
 import Landing from "./pages/Landing.js";
+import { Helmet } from "react-helmet";
 
 import "../utilities.css";
 
@@ -53,6 +54,9 @@ class App extends Component {
     if (this.state.userId) {
       return (
         <>
+          <Helmet>
+            <title>Coin</title>
+          </Helmet>
           <Navbar
             user={this.state.userId}
             handleLogin={this.handleLogin}
@@ -71,6 +75,12 @@ class App extends Component {
               handleLogout={this.handleLogout}
               user={this.state.userId}
             />
+            <Dashboard
+              path="/"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              user={this.state.userId}
+            />
             <NotFound default />
           </Router>
         </>
@@ -78,6 +88,9 @@ class App extends Component {
     } else {
       return (
         <>
+          <Helmet>
+            <title>Chip</title>
+          </Helmet>
           <Navbar
             creator={this.state.userId}
             handleLogin={this.handleLogin}
